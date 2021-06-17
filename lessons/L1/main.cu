@@ -24,7 +24,7 @@ void add(int n , float *x, float *y){
 int main(int argc, char* argv[]){
   int N = 1<<20;
   int blocksize = 256;
-  int numBlocks = (N - blocksize-1) / blocksize;
+  int numBlocks =(int)ceil(N / blocksize);
   float *x,*y;
   /* Allocated needed memeory to be accessible from CPU or GPU */ 
   cudaMallocManaged(&y, N*sizeof(float));
@@ -35,6 +35,8 @@ int main(int argc, char* argv[]){
     y[i] = 2.0f;
 
   }
+
+  
 
   // Run kernel on the gpu
   add<<<numBlocks,blocksize>>>(N,x,y);
